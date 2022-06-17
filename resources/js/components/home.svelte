@@ -10,8 +10,8 @@
 <svelte:head>
     <title>Abrar Edu</title>
 </svelte:head>
+<Slider />
 <div class="container py-4">
-    <Slider />
     <UnivPilihan />
     <div class="container">
         <h4 class="fw-bold"><img src="./assets/fire.png" alt="populer" class="mr-2"> Kursus Terpopuler</h4>

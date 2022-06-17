@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ isset($title) ? $title : 'Abrar'}}</title>
-        <link href="{{asset('css/app.css')}}" rel="stylesheet">
-        <script type="module" src="{{ asset('js/app.js') }}" defer></script>
+        <link href="{{mix('css/app.css')}}" rel="stylesheet">
+        <script type="module" src="{{ mix('js/app.js') }}" defer></script>
         <style>
             @font-face {
             font-family: 'ProductSans';
@@ -17,6 +17,9 @@
             font-family: "ProductSans";
         }
         </style>
+        <script>
+            const API_URL = '{{ url('api') }}';
+        </script>
     </head>
     <body>
         <div id="app"></div>

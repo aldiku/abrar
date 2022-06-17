@@ -1,29 +1,88 @@
 <script>
-    import RouterLink from '@spaceavocado/svelte-router/component/link';
-    import {
-        router
-    } from '@spaceavocado/svelte-router';
-
+    import RouterLink from '@spaceavocado/svelte-router/component/link'
+    import { router } from '@spaceavocado/svelte-router'
+    import {logWith} from '../store/accountStore'
+    let open = false;
     const daftar = () => {
-        $router.push('/login');
+        $router.push('/login')
     }
     const koneksikan = () => {
-        $router.push('/koneksi');
+        open = true
     }
 
-    let cats = [{
-            slug: 'teknik-sipil',
-            name: 'Teknik Sipil'
+    let connect = [
+        {
+            icon: 'wallet.png',
+            name: 'WalletConnect'
         },
         {
-            slug: 'teknik-informatika',
-            name: 'Teknik Informatikan'
+            icon: 'metamask.png',
+            name: 'MetaMask'
         },
         {
-            slug: 'teknik-mesin',
-            name: 'Teknik Mesin'
+            icon: 'trust.png',
+            name: 'TrustWallet'
+        },
+        {
+            icon: 'coinbase.png',
+            name: 'Coinbase Wallet'
+        },
+        {
+            icon: 'safepal.png',
+            name: 'SafePal Wallet'
+        },
+        {
+            icon: 'pocket.png',
+            name: 'TokenPocket'
+        },
+        {
+            icon: 'math.png',
+            name: 'Math Wallet'
+        },  
+    ];
+
+    let menu = [
+        {
+            slug: '/',
+            name: 'Beranda'
+        },
+        {
+            slug: '/tentang',
+            name: 'Tentang Abrar'
+        },
+        {
+            slug: '/univ',
+            name: 'Pilihan Universitas'
+        },
+        {
+            slug: '/program',
+            name: 'Program Belajar'
+        },
+        {
+            slug: '/sistem-kerja-kami',
+            name: 'Bagaimana Kami Bekerja'
+        },
+        {
+            slug: '/benefit',
+            name: 'Benefit'
+        },
+        {
+            slug: '/faq',
+            name: 'FAQ'
+        },
+        {
+            slug: '/kontak',
+            name: 'Kontak Kami'
         }
     ];
+
+    function log(name){
+        logWith.set(name)
+        open = false
+        $router.push('/dashboard')
+    }
+
+    let current = '/'
 
 </script>
 <nav class="navbar navbar-expand-md header shadow-sm sticky-top">
@@ -37,11 +96,11 @@
             <div class="d-flex w-100 row m-0">
                 <div class="col-12 col-sm w-100 mb-2 mb-sm-0">
                     <div class="input-group flex-nowrap">
-                        <span class="input-group-text" id="search-icon"><img src="/assets/search-normal.png"
+                        <input type="text" class="form-search px-5" placeholder="Cari materi disini"></div>
+                        <span class="position-absolute mx-2" style="transform: translateY(-130%) !important;"><img src="/assets/search-normal.png"
                                 alt=""></span>
-                        <input type="text" class="form-search" placeholder="Cari materi disini"></div>
                 </div>
-                <div class="col-12 col-sm-auto">
+                <div class="col-12 col-sm-auto px-0">
                     <div class="w-100 d-flex justify-content-between">
                         <button class="btn btn-border text-white" on:click={daftar}>Daftar</button>
                         <button class="btn btn-white" on:click={koneksikan}>Koneksikan</button>
@@ -49,44 +108,48 @@
                 </div>
             </div>
             <ul class="navbar-nav d-block d-sm-none mx-3">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href='/' id="navbarDropdownMenuLink" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Kategori
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        {#each cats as { slug, name }}
-                            <li>
-                                <RouterLink  cls="dropdown-item" to="/category/{slug}">{name}</RouterLink>
-                            </li>
-                        {/each}
-                    </ul>
-                  </li>
+                {#each menu as m}
+                    <li class="my-2">{m.name}</li>
+                {/each}
             </ul>
             
         </div>
     </div>
 </nav>
 <div class="d-none d-md-block nav shadow-sm">
-    <div class="container d-flex justify-content-between py-1">
-        <div class="menu">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Kategori
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    {#each cats as { slug, name }}
-                        <li>
-                            <RouterLink  cls="dropdown-item" to="/category/{slug}">{name}</RouterLink>
-                        </li>
-                    {/each}
-                </ul>
-            </li>
-        </div>
-        <div class="py-2">
-            <RouterLink cls="ml-3" to='/'>Home</RouterLink>
-            <RouterLink cls="ml-3" to='/jelajah'>Jelajah</RouterLink>
-        </div>
+    <div class="container d-flex justify-content-between">
+        {#each menu as m}
+            <a href="{m.slug}" class="py-3 text-secondary" class:menu-active="{current === m.slug}">{m.name}</a>
+        {/each}
     </div>
 </div>
+{#if open}
+<div class="modal" tabindex="-1" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" on:click={()=> {open=false;}}></button>
+      </div>
+      <div class="modal-body p-3">
+          <div class="text-center">
+            <img src="/assets/images/link.png" alt="">
+            <div class="fw-bold my-3">Connect Wallet</div>
+          </div>
+          <div class="row m-0">
+            {#each connect as c}
+            <div class="col-md-6 p-2">
+                <button class="card p-2 w-100" on:click={()=>{log(c.name)}} >
+                    <div class="d-flex align-items-center">
+                        <img src="/assets/images/{c.icon}" alt="">
+                        <span class="mx-2">{c.name}</span>
+                    </div>
+                </button>
+            </div>
+            {/each}
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop show"/>
+{/if}

@@ -5,6 +5,7 @@ import UnivDetail from '../components/univ/UnivDetail.svelte';
 import Category from '../components/category/index.svelte';
 import CategoryDetail from '../components/category/CategoryDetail.svelte';
 import home from '../components/home.svelte';
+import Dashboard from '../components/dashboard/Dashboard.svelte';
 import Login from '../components/Login.svelte';
 import notFound from '../components/notFound.svelte';
 const routes = [
@@ -41,6 +42,10 @@ const routes = [
         path: '/category/:slug',
         component: CategoryDetail,
         props: true
+    },
+    {
+        path: '/dashboard',
+        component: Dashboard,
     },
     {
         path: 'pathMatch(.*)*',

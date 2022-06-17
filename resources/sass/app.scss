@@ -63,6 +63,17 @@ h1 {
     background-size: cover;
 }
 
+.menu-active {
+    color: #2ec5b6 !important;
+    border-bottom: 4px solid;
+}
+
+.slide-univ {
+    background: url('/assets/bg-univ.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .sos-icon {
     width: 39px;
     height: 39px;
@@ -96,8 +107,6 @@ h1 {
 
 .form-search {
     border-radius: 10px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
     width: 100%;
     height: 40px;
     border: 0px;
@@ -272,6 +281,13 @@ h1 {
     margin-bottom: 10px;
 }
 
+.text-truncate-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 .text-truncate-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -290,7 +306,7 @@ h1 {
     height: 70px;
     position: relative;
     top: -35px;
-    border: 8px solid #2ec4b6;
+    border: 8px solid #e5e5e5;
 }
 
 .univ-title {
