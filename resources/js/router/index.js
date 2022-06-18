@@ -7,6 +7,7 @@ import CategoryDetail from '../components/category/CategoryDetail.svelte';
 import home from '../components/home.svelte';
 import Dashboard from '../components/dashboard/Dashboard.svelte';
 import BuatMateri from '../components/dashboard/BuatMateri.svelte';
+import Obrolan from '../components/dashboard/Obrolan.svelte';
 import Login from '../components/Login.svelte';
 import notFound from '../components/notFound.svelte';
 const routes = [
@@ -48,6 +49,10 @@ const routes = [
     {
         path: '/dashboard/materi',
         component: BuatMateri
+    },
+    {
+        path: '/dashboard/obrolan',
+        component: Obrolan
     },
 
     {
