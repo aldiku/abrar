@@ -1,10 +1,14 @@
 <script>
+    import Frontend from '../partials/Frontend.svelte'
+    
 </script>
 <svelte:head>
 	<title>Category</title>
 </svelte:head>
-<div class="container">
-    <div class="col">
-        tes
+<Frontend>
+    <div class="container">
+        <div class="col">
+            tes
+        </div>
     </div>
-</div>
+</Frontend>

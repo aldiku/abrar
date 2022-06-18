@@ -15,9 +15,12 @@
         "laravel-mix": "^6.0.43",
         "laravel-mix-svelte": "^0.5.0",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "postcss": "^8.1.14",
+        "svelte-fullcalendar": "^2.0.0-beta.0",
+        "svelte-preprocess": "^4.10.7"
     },
     "dependencies": {
+        "@fullcalendar/daygrid": "^5.11.0",
         "@spaceavocado/svelte-router": "^1.0.16",
         "autoprefixer": "10.4.5",
         "bootstrap": "^5.1.3",

@@ -6,6 +6,7 @@ import Category from '../components/category/index.svelte';
 import CategoryDetail from '../components/category/CategoryDetail.svelte';
 import home from '../components/home.svelte';
 import Dashboard from '../components/dashboard/Dashboard.svelte';
+import BuatMateri from '../components/dashboard/BuatMateri.svelte';
 import Login from '../components/Login.svelte';
 import notFound from '../components/notFound.svelte';
 const routes = [
@@ -18,11 +19,8 @@ const routes = [
         component: Login
     },
     {
-        path: '/koneksikan',
-        component: materiIndex
-    },{
         path: '/jelajah',
-        component: materiIndex
+        component: Category
     },
     {
         path: '/materi/:slug',
@@ -45,8 +43,13 @@ const routes = [
     },
     {
         path: '/dashboard',
-        component: Dashboard,
+        component: Dashboard
     },
+    {
+        path: '/dashboard/materi',
+        component: BuatMateri
+    },
+
     {
         path: 'pathMatch(.*)*',
         component: notFound
