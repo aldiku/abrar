@@ -42,19 +42,13 @@
                     <div class="fw-bold">Buat Materi</div>
                     <div class="separate">
                         <ul class="text-center">
-                          <li><button class="btn border rounded-circle btn-teal s-40px">1</button></li>
-                          <li><button class="btn border rounded-circle s-40px">2</button></li>
+                          <li><button class="btn border rounded-circle s-40px">v</button></li>
+                          <li><button class="btn border rounded-circle btn-teal s-40px">2</button></li>
                           <li><button class="btn border rounded-circle s-40px">3</button></li>
                         </ul>
                       </div>
                       <div class="mb-3">
-                          <div class="fw-bold">Gambar Thumbnail</div>
-                          <div class="card rounded-md uploader h-100px">
-                                <div class="mx-auto text-muted my-auto">Drag atau Klik untuk menggungah </div>
-                          </div>
-                      </div>
-                      <div class="mb-3">
-                          <div class="fw-bold">Judul Kursus</div>
+                          <div class="fw-bold">Judul Materi</div>
                           <input type="text" class="form-control" placeholder="Masukkan judul kursus">
                       </div>
                       <div class="mb-3">
@@ -62,24 +56,12 @@
                         <textarea class="form-control" placeholder="Masukkan judul kursus"></textarea>
                     </div>
                     <div class="mb-3">
-                        <div class="fw-bold">Kelas</div>
-                        <select name="kelas" id="" class="form-select">
-                            <option value="">pilih kelas</option>
-                        </select>
+                        <div class="fw-bold">Unggah Video Materi</div>
+                        <div class="card rounded-md uploader h-100px">
+                              <div class="mx-auto text-muted my-auto">Drag atau Klik untuk menggungah </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <div class="fw-bold">Jurusan</div>
-                        <select name="kelas" id="" class="form-select">
-                            <option value="">pilih kelas</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <div class="fw-bold">Kategori</div>
-                        <select name="kelas" id="" class="form-select">
-                            <option value="">pilih kelas</option>
-                        </select>
-                    </div>
-                    <RouterLink type="button" cls="btn btn-teal" to="/dashboard/materi/step2">Selanjutnya</RouterLink>
+                    <RouterLink type="button" cls="btn btn-teal" to="/dashboard/materi/step3">Selanjutnya</RouterLink>
                 </div>
             </div>
             <div class="col-md-4">

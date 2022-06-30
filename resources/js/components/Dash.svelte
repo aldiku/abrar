@@ -3,4 +3,3 @@
     let serverUrl = process.env.MIX_serverUrl
 </script>
 <RouterView/>
-{serverUrl}

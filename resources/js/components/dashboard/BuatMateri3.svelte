@@ -42,44 +42,28 @@
                     <div class="fw-bold">Buat Materi</div>
                     <div class="separate">
                         <ul class="text-center">
-                          <li><button class="btn border rounded-circle btn-teal s-40px">1</button></li>
-                          <li><button class="btn border rounded-circle s-40px">2</button></li>
-                          <li><button class="btn border rounded-circle s-40px">3</button></li>
+                          <li><button class="btn border rounded-circle s-40px">v</button></li>
+                          <li><button class="btn border rounded-circle s-40px">v</button></li>
+                          <li><button class="btn border rounded-circle btn-teal s-40px">3</button></li>
                         </ul>
                       </div>
                       <div class="mb-3">
-                          <div class="fw-bold">Gambar Thumbnail</div>
-                          <div class="card rounded-md uploader h-100px">
-                                <div class="mx-auto text-muted my-auto">Drag atau Klik untuk menggungah </div>
-                          </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="fw-bold">Waktu Materi Dibagikan</div>
+                                <input type="date" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-md-6 d-flex align-items-end">
+                                <div class="form-check mb-0">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label mb-1" for="flexCheckDefault">
+                                      Sekarang
+                                    </label>
+                                  </div>
+                            </div>
+                        </div>
                       </div>
-                      <div class="mb-3">
-                          <div class="fw-bold">Judul Kursus</div>
-                          <input type="text" class="form-control" placeholder="Masukkan judul kursus">
-                      </div>
-                      <div class="mb-3">
-                        <div class="fw-bold">Deskripsi</div>
-                        <textarea class="form-control" placeholder="Masukkan judul kursus"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <div class="fw-bold">Kelas</div>
-                        <select name="kelas" id="" class="form-select">
-                            <option value="">pilih kelas</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <div class="fw-bold">Jurusan</div>
-                        <select name="kelas" id="" class="form-select">
-                            <option value="">pilih kelas</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <div class="fw-bold">Kategori</div>
-                        <select name="kelas" id="" class="form-select">
-                            <option value="">pilih kelas</option>
-                        </select>
-                    </div>
-                    <RouterLink type="button" cls="btn btn-teal" to="/dashboard/materi/step2">Selanjutnya</RouterLink>
+                    <button type="button" class="btn btn-teal" on:click={()=>{alert('Working')}}>Konfirmasi</button>
                 </div>
             </div>
             <div class="col-md-4">
@@ -106,11 +90,3 @@
     </div>
         
 </Backend>
-<style>
-    .uploader {
-       background-color: #D5FCEA;
-       height: 100px;
-       border: 1px solid #444;
-       border-style: dashed;
-    }
-</style>
