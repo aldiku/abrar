@@ -2,12 +2,41 @@
     import RouterLink from '@spaceavocado/svelte-router/component/link'
     import { router } from '@spaceavocado/svelte-router'
     import {logWith} from '../store/accountStore'
+    import Moralis from 'moralis/dist/moralis.min.js'
+    import { onMount } from 'svelte';
+    import {ethAddress} from '../store/accountStore'
+
+    let serverUrl = process.env.MIX_serverUrl
+    let appId = process.env.MIX_appId
     let open = false;
+    let user;
+
+    onMount(()=>{
+        Moralis.start({ serverUrl, appId })
+    })
+
     const daftar = () => {
         $router.push('/login')
     }
-    const koneksikan = () => {
-        open = true
+    async function koneksikan() {
+        let user = Moralis.User.current();
+        if (!user) {
+            try {
+            user = await Moralis.authenticate({ signingMessage: "Welcome To Abrar Edu!" });
+            console.log(user);
+            ethAddress.set(user.get("ethAddress"));
+            } catch (error) {
+            console.log(error);
+            }
+        }else{
+            ethAddress.set(user.get("ethAddress"))
+            dashboard()
+        }
+    }
+
+    const logout = () => {
+        Moralis.User.logOut();
+        ethAddress.set('');
     }
 
     let connect = [
@@ -80,6 +109,7 @@
         logWith.set(name)
         open = false
         $router.push('/dashboard')
+        location.reload();
     }
 
     let current = '/'
@@ -102,8 +132,13 @@
                 </div>
                 <div class="col-12 col-sm-auto px-0">
                     <div class="w-100 d-flex justify-content-between">
+                        {#if $ethAddress == ''}
                         <button class="btn btn-border text-white" on:click={daftar}>Daftar</button>
                         <button class="btn btn-white" on:click={koneksikan}>Koneksikan</button>
+                        {:else}
+                        <a class="btn btn-border text-white" href="/dashboard">Dashboard</a>
+                        <button class="btn btn-white" on:click={logout}>Logout</button>
+                        {/if}
                     </div>
                 </div>
             </div>

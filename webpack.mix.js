@@ -13,6 +13,7 @@ require('laravel-mix-svelte');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/dash.js', 'public/js')
     .svelte()
     .sass('resources/sass/app.scss', 'public/css')
     .version();

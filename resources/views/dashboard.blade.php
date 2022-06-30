@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ isset($title) ? $title : 'Abrar'}}</title>
         <link href="{{mix('css/app.css')}}" rel="stylesheet">
-        <script type="module" src="{{ mix('js/app.js') }}" defer></script>
+        <script type="module" src="{{ mix('js/dash.js') }}" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
         <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
         <style>
