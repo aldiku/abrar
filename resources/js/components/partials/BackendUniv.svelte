@@ -15,18 +15,18 @@
             slug:"/dashboard/obrolan",
             icon: "messages.png",
             name: "Obrolan"
-        },
-        {
-            slug:"/jelajah",
-            icon: "jelajah.png",
-            name: "Jelajah"
         }
+        // {
+        //     slug:"/jelajah",
+        //     icon: "jelajah.png",
+        //     name: "Jelajah"
+        // }
     ];
     let materiCoin = '2400';
 </script>
 <nav class="navbar navbar-expand-md header shadow-sm sticky-top">
     <div class="container">
-        <RouterLink cls="navbar-brand" to="/" ><img src="/assets/Logo.png" alt="logo"></RouterLink>
+        <a clas="navbar-brand" href="/" ><img src="/assets/Logo.png" alt="logo"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navhead"
             aria-controls="navhead" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -56,8 +56,8 @@
                         </div>
                     </div>
                     <ul class="dropdown-menu" aria-labelledby="userLink">
-                        <li>
-                            <RouterLink  cls="dropdown-item" to="/">Kembali Ke Beranda</RouterLink>
+                        <li class="px-2">
+                            <a  clas="dropdown-item" href="/">Kembali Ke Beranda</a>
                         </li>
                     </ul>
                 </div>

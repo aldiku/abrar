@@ -1,46 +1,31 @@
 <script>
     import Backend from '../partials/BackendUniv.svelte'
     import {router} from '@spaceavocado/svelte-router'
+    import MultiSelect from 'svelte-multiselect'
     import DropZone from "svelte-atoms/DropZone.svelte";
     import {ethAddress} from '../store/accountStore'
-    import Svelecte from 'Svelecte/src/Svelecte.svelte';
 
-    let kelas = [], jurusan = [], kategory = [],thumbnail = '',materi_name= '',description= '',fileName= '';
-    let labelAsValue = false;
+    let kelas = ['A'], jurusan = ['A'], kategory = ['5'],thumb = '',title= '',description= '',fileName= '';
+   
+    const opsi_kelas = [
+        {
+            'label': "Kelas A",
+            'value': "A"
+        }
+    ];
+    const opsi_jurusan = [
+        {
+            'label': "Jurusan A",
+            'value': "A"
+        }
+    ];
+    const opsi_kategory = [
+        {
+            'label': "Komputer",
+            'value': "5"
+        }
+    ];
 
-    let optionsKelas = [
-        {
-            value: '1',
-            label: "kelas A"
-        },
-        {
-            value: '2',
-            label: "kelas B"
-        }
-    ];
-    let valueKelas = ['A'];
-    let optionsJurusan = [
-        {
-            value: '1',
-            label: "Jurusan A"
-        },
-        {
-            value: '1',
-            label: "Jurusan B"
-        }
-    ];
-    let valueJurusan = ['A'];
-    let optionsKategory = [
-        {
-            value: '1',
-            label: "Sales"
-        },
-        {
-            value: '2',
-            label: "Teknologi"
-        }
-    ];
-    let valueKategory = ['A'];
     const onChange = e => {
         let dataFile = null;
         const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
@@ -53,7 +38,7 @@
             body: formData
         }).then((response) => response.json()).then((result) => {
             console.log('Success:', result);
-            thumbnail = result.data
+            thumb = result.data
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -63,15 +48,12 @@
         const send = await fetch("/api/materi/save", {
 			method: 'POST',
 			body: JSON.stringify({
-                kelas, jurusan, kategory,thumbnail,materi_name,description,fileName,ethAddress: $ethAddress
-            }),
-            headers: {
-                    'Content-Type': 'application/json'
-                }
+                kelas, jurusan, kategory,thumb,title,description,fileName
+            })
 		})
 		const res = await send.json()
 		if(res.status){
-            $router.push('/dashboard/materi/step2/');
+            $router.push('/dashboard/materi/step2/'+res.id);
         }else{
             alert(res.message);
         }
@@ -108,12 +90,10 @@
             desc: "RIngkasan"
         },
     ];
-    let selection = [];
-    let value = ['Czechia', 'Germany'];
+
 </script>
 <Backend>
     <div class="container">
-       
         <div class="row py-3">
             <div class="col-md-8 mb-3">
                 <div class="card rounded-md p-3">
@@ -133,7 +113,7 @@
                       </div>
                       <div class="mb-3">
                           <div class="fw-bold">Judul Kursus</div>
-                          <input type="text" class="form-control" placeholder="Masukkan judul kursus" bind:value={materi_name}>
+                          <input type="text" class="form-control" placeholder="Masukkan judul kursus" bind:value={title}>
                       </div>
                       <div class="mb-3">
                         <div class="fw-bold">Deskripsi</div>
@@ -141,30 +121,15 @@
                     </div>
                     <div class="mb-3">
                         <div class="fw-bold">Kelas</div>
-                        <Svelecte options={optionsKelas} {labelAsValue}
-                            bind:readSelection={valueKelas}
-                            bind:value={kelas}
-                            multiple
-                            placeholder="Pilih Kelas"
-                        ></Svelecte>
+                        <MultiSelect bind:kelas options={opsi_kelas} on:change={()=>{kelas = kelas}}/>
                     </div>
                     <div class="mb-3">
                         <div class="fw-bold">Jurusan</div>
-                        <Svelecte options={optionsJurusan} {labelAsValue}
-                            bind:readSelection={valueJurusan}
-                            bind:value={jurusan}
-                            multiple
-                            placeholder="Pilih Jurusan"
-                        ></Svelecte>
+                        <MultiSelect bind:jurusan options={opsi_jurusan}  />
                     </div>
                     <div class="mb-3">
                         <div class="fw-bold">Kategori</div>
-                        <Svelecte options={optionsKategory} {labelAsValue}
-                        bind:readSelection={valueKategory}
-                        bind:value={kategory}
-                        multiple
-                        placeholder="Pilih Jurusan"
-                    ></Svelecte>
+                        <MultiSelect bind:kategory options={opsi_kategory} />
                     </div>
                     <button type="button" class="btn btn-teal" to="/dashboard/materi/step2" on:click={()=>{save_draft()}}>Selanjutnya</button>
                 </div>

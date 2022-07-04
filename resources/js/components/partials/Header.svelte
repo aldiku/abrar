@@ -4,34 +4,77 @@
     import {logWith} from '../store/accountStore'
     import Moralis from 'moralis/dist/moralis.min.js'
     import { onMount } from 'svelte';
-    import {ethAddress} from '../store/accountStore'
+    import {ethAddress,network} from '../store/accountStore'
 
     let serverUrl = process.env.MIX_serverUrl
     let appId = process.env.MIX_appId
     let open = false;
     let user;
+    let web3;
+    let chainID;
 
     onMount(()=>{
         Moralis.start({ serverUrl, appId })
+        setWeb3Env()
     })
 
     const daftar = () => {
         $router.push('/login')
     }
     async function koneksikan() {
+        open = true;
+    }
+
+    async function login (provider){
         let user = Moralis.User.current();
         if (!user) {
             try {
-            user = await Moralis.authenticate({ signingMessage: "Welcome To Abrar Edu!" });
+                if(provider == 'metamask'){
+                    user = await Moralis.authenticate({ signingMessage: "Welcome To Abrar Edu!" });
+                }
+                if(provider == 'walletconnect'){
+                    user = await Moralis.authenticate({ provider: "walletconnect" });
+                }
             console.log(user);
             ethAddress.set(user.get("ethAddress"));
+            setWeb3Env()
             } catch (error) {
             console.log(error);
             }
         }else{
             ethAddress.set(user.get("ethAddress"))
-            dashboard()
+            setWeb3Env()
         }
+    }
+
+    async function setWeb3Env(){
+        let user = Moralis.User.current();
+        if (user) {
+            let web3, chainID;
+            web3 = new Web3(window.ethereum);
+            chainID = await web3.eth.net.getId();
+            network.set(getNetworkName(chainID));
+            monitorNetwork()
+        }
+        
+    }
+
+   
+    function getNetworkName(chainID){
+        let networks;
+        networks = {
+            1:"ETH Mainnet",
+            4:"ETH Rinkeby",
+            97: "BSC Testnet",
+            80001:"Mumbai Testnet"
+        }
+        return networks[chainID];
+    }
+
+    function monitorNetwork(){
+        Moralis.onChainChanged(()=>{
+            window.location.reload()
+        })
     }
 
     const logout = () => {
@@ -42,32 +85,36 @@
     let connect = [
         {
             icon: 'wallet.png',
-            name: 'WalletConnect'
+            name: 'WalletConnect',
+            provider: 'walletconnect'
         },
         {
             icon: 'metamask.png',
-            name: 'MetaMask'
-        },
-        {
-            icon: 'trust.png',
-            name: 'TrustWallet'
-        },
-        {
-            icon: 'coinbase.png',
-            name: 'Coinbase Wallet'
-        },
-        {
-            icon: 'safepal.png',
-            name: 'SafePal Wallet'
-        },
-        {
-            icon: 'pocket.png',
-            name: 'TokenPocket'
-        },
-        {
-            icon: 'math.png',
-            name: 'Math Wallet'
-        },  
+            name: 'MetaMask',
+            provider: 'metamask'
+        }
+        // ,
+        // {
+        //     icon: 'trust.png',
+        //     name: 'TrustWallet',
+        //     provider: 'trust'
+        // },
+        // {
+        //     icon: 'coinbase.png',
+        //     name: 'Coinbase Wallet'
+        // },
+        // {
+        //     icon: 'safepal.png',
+        //     name: 'SafePal Wallet'
+        // },
+        // {
+        //     icon: 'pocket.png',
+        //     name: 'TokenPocket'
+        // },
+        // {
+        //     icon: 'math.png',
+        //     name: 'Math Wallet'
+        // },  
     ];
 
     let menu = [
@@ -112,6 +159,10 @@
         location.reload();
     }
 
+    function dot(text){
+        return text.substring(0, 6)+"..."+text.slice(-4);
+    }
+
     let current = '/'
 
 </script>
@@ -134,10 +185,18 @@
                     <div class="w-100 d-flex justify-content-between">
                         {#if $ethAddress == ''}
                         <button class="btn btn-border text-white" on:click={daftar}>Daftar</button>
-                        <button class="btn btn-white" on:click={koneksikan}>Koneksikan</button>
+                        <button class="btn btn-white" on:click={koneksikan}>Connect</button>
                         {:else}
-                        <a class="btn btn-border text-white" href="/dashboard">Dashboard</a>
-                        <button class="btn btn-white" on:click={logout}>Logout</button>
+                        <button class="btn btn-border text-white">{$network}</button>
+                        <div class="dropdown">
+                            <button class="btn btn-border text-white dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                              {dot($ethAddress)}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                              <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                              <li><span class="dropdown-item" on:click={logout}>Logout</span></li>
+                            </ul>
+                          </div>
                         {/if}
                     </div>
                 </div>
@@ -173,7 +232,7 @@
           <div class="row m-0">
             {#each connect as c}
             <div class="col-md-6 p-2">
-                <button class="card p-2 w-100" on:click={()=>{log(c.name)}} >
+                <button class="card p-2 w-100" on:click={()=>{login(c.provider)}} >
                     <div class="d-flex align-items-center">
                         <img src="/assets/images/{c.icon}" alt="">
                         <span class="mx-2">{c.name}</span>

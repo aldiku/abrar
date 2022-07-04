@@ -24,6 +24,8 @@ return new class extends Migration
             $table->integer('class_id')->nullable();
             $table->integer('category_id')->nullable();
             $table->integer('departmen_id')->nullable();
+            $table->string('status')->nullable();
+            $table->integer('cost');
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@
         <script type="module" src="{{ mix('js/app.js') }}" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
         <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+        <script src="{{asset('js/web3-provider.min.js')}}"></script>
         <style>
             @font-face {
             font-family: 'ProductSans';

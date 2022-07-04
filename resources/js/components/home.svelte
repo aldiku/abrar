@@ -6,6 +6,21 @@
     import TopCategory from './partials/TopCategory.svelte';
     import RouterLink from '@spaceavocado/svelte-router/component/link';
     import Frontend from './partials/Frontend.svelte'
+    import {APP_URL} from './store/global'
+    import Spinner from './partials/Spinner.svelte'
+
+    let popular = get_popular()
+    async function get_popular(){
+        const res = await fetch('/api/materi?limit=4&type=popular');
+		const data = await res.json();
+        return data;
+    }
+    let promise = get_materi()
+    async function get_materi(){
+        const res = await fetch('/api/materi');
+		const data = await res.json();
+        return data;
+    }
 
 </script>
 <svelte:head>
@@ -18,38 +33,20 @@
         <div class="container">
             <h4 class="fw-bold"><img src="./assets/fire.png" alt="populer" class="mr-2"> Kursus Terpopuler</h4>
             <div class="row my-3">
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='12 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='672 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='33 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='35 Orang'>
-                    </Card>
-                </div>
+                {#await popular}
+                    <Spinner/>
+                {:then data} 
+                    {#each data.data.rows as r}
+                    <div class="col-md-3 mb-3">
+                        <Card imageUrl='/assets/materi/{r.thumbnail}'
+                            title="{r.materi_name}"
+                            link="{r.seo_url}"
+                            description="{r.description}"
+                            participant='{r.participant} Orang'>
+                        </Card>
+                    </div>
+                    {/each}
+                {/await}
             </div>
         </div>
         <div class="container">
@@ -81,102 +78,20 @@
         <div class="container">
             <div class="h3 mb-3">Semua Kelas</div>
             <div class="row my-3">
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='12 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='672 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='33 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='35 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='12 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='672 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='33 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='35 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='12 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='672 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='33 Orang'>
-                    </Card>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <Card imageUrl='/assets/materi/article-1.png'
-                        title="Belajar Budidaya dan Pemasan Ikan untuk Pengusaha Ikan Air Tawar"
-                        link="belajar-budidaya-ikan"
-                        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard du..."
-                        participant='35 Orang'>
-                    </Card>
-                </div>
+                {#await promise}
+                <Spinner/>
+                {:then data} 
+                    {#each data.data.rows as r}
+                    <div class="col-md-3 mb-3">
+                        <Card imageUrl='/assets/materi/{r.thumbnail}'
+                            title="{r.materi_name}"
+                            link="{r.seo_url}"
+                            description="{r.description}"
+                            participant='{r.participant} Orang'>
+                        </Card>
+                    </div>
+                    {/each}
+                {/await}
             </div>
         </div>
     </div>

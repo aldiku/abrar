@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('materi')->group(function () {
     Route::get('/', [MateriController::class,'index']);
+    Route::get('detail/{slug}', [MateriController::class,'detail']);
+    Route::post('upload_thumb', [MateriController::class,'upload_thumb']);
+    Route::post('save', [MateriController::class,'save']);
 
 });
 Route::prefix('promo')->group(function () {

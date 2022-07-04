@@ -16,6 +16,7 @@
         "laravel-mix-svelte": "^0.5.0",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
+        "svelte-atoms": "^0.0.27",
         "svelte-fullcalendar": "^2.0.0-beta.0",
         "svelte-preprocess": "^4.10.7"
     },
@@ -28,8 +29,12 @@
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.51.0",
         "sass-loader": "^12.6.0",
+        "svelecte": "^3.9.0",
         "svelte": "^3.48.0",
+        "svelte-dropzone": "^1.0.6",
+        "svelte-file-dropzone": "^1.0.0-dev.1",
         "svelte-loader": "^3.1.2",
+        "svelte-multiselect": "^5.0.3",
         "sweetalert2": "^11.4.10"
     }
 }

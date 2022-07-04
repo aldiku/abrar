@@ -21,6 +21,7 @@ Route::get('/univ/{slug}', function (Request $request, $slug) { return view('wel
 ]);});
 Route::get('/dashboard', function () { return view('dashboard');});
 Route::get('/dashboard/{any}', function () { return view('dashboard');});
+Route::get('/dashboard/{any}/{step}', function () { return view('dashboard');});
 
 
 Route::get('/{pathMatch}', function () { return view('welcome');})->where('pathMatch',".*");

@@ -10,7 +10,7 @@
 
 </script>
 <div class="card rounded-md {cls}">
-    <img src={imageUrl} alt="{title}" />
+    <img src={imageUrl} alt="{title}"  style="height:180px; object-fit: fill;width: 100%;"/>
     <div class="card-body">
         <div class="d-flex justify-content-between mb-3">
             <div class="sertifikat badge bg-soft-teal color-teal d-flex align-items-center">
@@ -21,7 +21,7 @@
             </div>
         </div>
         <h6 class="fw-bold text-truncate-2">{title}</h6>
-        <p class="text-truncate-3 op-4">{description}</p>
+        <p class="text-truncate-2 op-4">{description}</p>
         <slot></slot>
         <RouterLink to="/materi/{link}" cls="btn btn-teal w-100">Ikut Materi</RouterLink>
     </div>
