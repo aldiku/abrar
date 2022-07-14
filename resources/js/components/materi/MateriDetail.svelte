@@ -20,6 +20,10 @@
 
     var title = toTitleCase(slug.replace(/[\W_]/g, " "));
 
+    function ikut(slug){
+        console.log(slug)
+    }
+
 </script>
 <svelte:head>
     <title>{title}</title>
@@ -44,40 +48,44 @@
         </div>
     </div>
     <div class="container">
-        <div class="card p-3 rounded-md my-3">
-            <div class="h5 fw-bold mb-3">{data.data.materi_name}</div>
-            <div class="content op-4">{data.data.body}</div>
-        </div>
-        <div class="card p-3 rounded-md my-3">
-            <div class="h5 fw-bold mb-3">Tentang {data.data.universitas.university_name}</div>
-            <div class="row">
-    
-                <div class="col-auto">
-                    <img src="/assets/univ/{data.data.universitas.logo}" alt="" class="icon-univ">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card p-3 rounded-md my-3">
+                    <div class="h5 fw-bold mb-3">{data.data.materi_name}</div>
+                    <div class="content op-4">{data.data.body}</div>
                 </div>
-                <div class="col">
-                    <div class="univ-desc op-4 text-truncate-3">{data.data.universitas.description}</div>
-                    <RouterLink to="/univ/{data.data.universitas.slug_university}" cls="btn btn-teal rounded-md mt-2">Selengkapnya</RouterLink>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 rounded-md my-3">
+                    <div class="h5 fw-bold mb-3"><img src="/assets/univ/{data.data.universitas.logo}" alt="" class="img-fluid" style="height:20px;"> {data.data.universitas.university_name}</div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="univ-desc op-4 text-truncate-3">{data.data.universitas.description}</div>
+                            <RouterLink to="/univ/{data.data.universitas.slug_university}" cls="btn btn-teal rounded-md mt-2">Selengkapnya</RouterLink>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-3 rounded-md my-3">
+                    <div class="h5 fw-bold mb-3">Konten Materi</div>
+                    <div class="d-flex">
+                        <div class="text-center col">
+                            <img src="/assets/video.png" alt="" class="my-3">
+                            <div class="count">{videoUniv}</div>
+                        </div>
+                        <div class="text-center col">
+                            <img src="/assets/document.png" alt="" class="my-3">
+                            <div class="count">{docUniv}</div>
+                        </div>
+                        <div class="text-center col">
+                            <img src="/assets/verify.png" alt="" class="my-3">
+                            <div class="count">Sertifikat</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="card p-3 rounded-md my-3">
-            <div class="h5 fw-bold mb-3">Konten Materi</div>
-            <div class="d-flex">
-                <div class="text-center col col-md-1">
-                    <img src="/assets/video.png" alt="" class="my-3">
-                    <div class="count">{videoUniv}</div>
-                </div>
-                <div class="text-center col col-md-2">
-                    <img src="/assets/document.png" alt="" class="my-3">
-                    <div class="count">{docUniv}</div>
-                </div>
-                <div class="text-center col col-md-2">
-                    <img src="/assets/verify.png" alt="" class="my-3">
-                    <div class="count">Sertifikat</div>
-                </div>
-            </div>
-        </div>
+        
+       
     </div>
     <div class="card">
         <div class="container d-flex justify-content-between align-items-center">
@@ -85,9 +93,8 @@
                 <button class="btn" data-bs-toggle="modal" data-bs-target="#modalShare"><img src="/assets/share.png"
                         alt="">Bagikan</button>
             </div>
-            <div class="ikut">
-                <button class="btn"><img src="/assets/coin.png" alt="" class=""><span class="mx-2">{data.data.cost} Coin</span> <span
-                        class="btn btn-teal">Ikuti</span></button>
+            <div class="ikut" on:click={()=>{ikut(slug)}}>
+                <button class="btn"><img src="/assets/coin.png" alt="" class=""><span class="mx-2">{data.data.cost} Coin</span> <span class="btn btn-teal">Ikut Materi</span></button>
             </div>
         </div>
     </div>
